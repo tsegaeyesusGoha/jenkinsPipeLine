@@ -1,25 +1,11 @@
+Jenkinsfile (Declarative Pipeline)
+/* Requires the Docker Pipeline plugin */
 pipeline {
     agent { docker { image 'maven:3.9.9-eclipse-temurin-21-alpine' } }
-
-    environment {
-        // Set the SSH key for Git operations
-        GIT_SSH_COMMAND = 'ssh -i /var/jenkins_home/.ssh/id_rsa'
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the repository using SSH
-                git branch: 'main', 
-                url: 'git@github.com:tsegaeyesusGoha/jenkinsPipeLine.git',
-                credentialsId: '962a9fd6-98f5-4878-abb9-f57e3010f5a4'
-            }
-        }
-
-        stage('Build') {
+        stage('build') {
             steps {
                 sh 'mvn --version'
-                // Add your build commands here
             }
         }
     }
